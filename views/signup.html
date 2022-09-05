@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+
+    <title>Bootstrap Signup</title>
+  </head>
+  <body>
+    <div class="row">
+      <div class=".container col-3"></div>
+      <div class=".container col-6">
+        <h2>Signing form</h2>
+
+        <form
+          action="/create_user"
+          method="post"
+          id="form"
+          class="needs-validation"
+          novalidate
+        >
+          <!-- <form action="/action_page.php" method="post" id="form" oninput= 'repwd.setCustomValidity(pswd.value == repswd.value  ? false : true)' class="needs-validation" novalidate> -->
+          <!--Name-->
+          <div class="mb-3 mt-3">
+            <label for="name">Name:</label>
+            <input
+              type="name"
+              class="form-control"
+              id="name"
+              placeholder="Enter name"
+              name="name"
+              pattern="[a-zA-Z0-9_-]{6,15}$"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">
+              Username must have 6 minlength and 15 max length. can contain only
+              lowercase, uppercase,, numbers, "-" and "_"
+            </div>
+          </div>
+
+          <!--Email-->
+          <div class="mb-3 mt-3">
+            <label for="email">Email:</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="Enter email"
+              name="email"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Please input valid email ID</div>
+          </div>
+
+          <!--Password-->
+          <div class="mb-3">
+            <label for="pwd">Password:</label>
+            <input
+              type="password"
+              class="form-control"
+              id="pwd"
+              placeholder="Enter password"
+              name="pswd"
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{6,12}$"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">
+              assword shall consist at least 1 Uppercase, 1 Lowercase, 1 Number,
+              1 Symbol, symbol allowed --> !@#$%^&*_=+- and Min 6 chars and Max
+              12 chars
+            </div>
+          </div>
+          <!--Retype Password-->
+          <div class="mb-3">
+            <label for="repwd">Retype Password:</label>
+            <input
+              type="password"
+              class="form-control"
+              id="repwd"
+              placeholder="Retype password"
+              name="repswd"
+              required
+            />
+            <div class="valid-feedback" id="valid_repwd">Matching!</div>
+            <div class="invalid-feedback" id="invalid_repwd">
+              Passwords are not matching!!!
+            </div>
+          </div>
+          <!-- <div class="form-check mb-3">
+            <label class="form-check-label">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                name="remember"
+                required
+              />
+              Remember me
+            </label>
+          </div> -->
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <div class=".container col-3"></div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/javascripts/signup.js"></script>
+  </body>
+</html>
