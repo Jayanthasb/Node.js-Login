@@ -3,7 +3,7 @@ const path = require("path");
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
 const session = require("express-session");
-//var popup = require("popups");
+const popup = require("popups");
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -103,6 +103,7 @@ app.post("/create_user", (req, res) => {
     // popup.alert({
     //   content: `Hello ${username}`,
     // });
+
     res.sendFile(path.join(__dirname, "views/login.html"));
   });
 });

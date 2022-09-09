@@ -13,46 +13,49 @@
     />
   </head>
   <body>
-    <div class="d-flex justify-content-center">
+    <div class="row">
       <h1 class="d-flex justify-content-center">Login</h1>
-    </div>
-
-    <div class="login d-flex justify-content-center min-vw-200">
-      <form action="/auth" method="post">
-        <div class="form-group mb-3 mt-3">
-          <label for="username">User Name:</label>
-          <!-- font awesome icon -->
-          <!-- <i class="fas fa-user"></i> -->
-          <input
-            type="text"
-            name="username"
-            class="form-control"
-            placeholder="Username"
-            id="username"
-            required
-          />
-        </div>
-        <div class="form-group mb-3 mt-3">
-          <label for="password">Password:</label>
-          <!-- <i class="fas fa-lock"></i> -->
-          <input
-            type="password"
-            name="password"
-            class="form-control"
-            placeholder="Password"
-            id="password"
-            required
-          />
-        </div>
-        <div class="form-group mb-3 mt-3">
-          <button type="submit" class="btn btn-primary form-control">
-            Login
-          </button>
-        </div>
-        <div class="w-100 text-md-right">
-          <a href="#fogot">Forgot Password</a>
-        </div>
-      </form>
+      <div class=".container col-4"></div>
+      <div class=".container col-4">
+        <form action="/auth" method="post">
+          <div class="form-group mb-3 mt-3">
+            <label for="username">User Name:</label>
+            <!-- font awesome icon -->
+            <!-- <i class="fas fa-user"></i> -->
+            <input
+              type="text"
+              name="username"
+              class="form-control"
+              placeholder="Username"
+              id="username"
+              required
+            />
+          </div>
+          <div class="form-group mb-3 mt-3">
+            <label for="password">Password:</label>
+            <!-- <i class="fas fa-lock"></i> -->
+            <input
+              type="password"
+              name="password"
+              class="form-control"
+              placeholder="Password"
+              id="password"
+              required
+            />
+          </div>
+          <div class="form-group mb-3 mt-3">
+            <button type="submit" class="btn btn-primary form-control">
+              Login
+            </button>
+          </div>
+          <div class="w-100 text-md-right">
+            <a href="/forgot">Forgot Password</a>
+            <label>or</label>
+            <a href="/signup">Signup as new user</a>
+          </div>
+        </form>
+      </div>
+      <div class=".container col-4"></div>
     </div>
     <!-- <div class="signup d-flex justify-content-center mb-3 mt-3">
       <form action="/signup" method="get">
