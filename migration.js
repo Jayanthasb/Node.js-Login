@@ -14,7 +14,7 @@ var connection = mysql.createPool({
 
 migration.init(
   connection,
-  "/home/jayantha/projects/migrations",
+  "/home/jayantha/projects/basic-html-form/public_html/migrations",
   function () {},
   ["--update-schema"]
 );

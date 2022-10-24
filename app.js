@@ -3,8 +3,10 @@ const path = require("path");
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const popup = require("popups");
 
+const hostname = "127.0.0.1"; // you have to replace this if restrat the mechine
+const port = 5000;
+let session_id;
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -42,8 +44,55 @@ app.get("/", (req, res) => {
 app.get("/signup", (req, res) => {
   res.sendFile(path.join(__dirname, "views/signup.html"));
 });
+//logout
+app.get("/logout", (req, res) => {
+  console.log("logout request recieved");
+  // res.sendFile(path.join(__dirname, "views/login.html"));
 
-// http://localhost:3000/auth
+  if (session_id != null) {
+    console.log("logging out");
+    connection.query(
+      "UPDATE accounts SET login = 0 WHERE user_id = ?",
+      [session_id],
+      function (err, result) {
+        if (err) {
+          console.log(err);
+        }
+        console.log("logout updated");
+      }
+    );
+  }
+  res.redirect("/");
+});
+
+app.get("/online", (req, res) => {
+  console.log("fetch recieved");
+  connection.query(
+    "SELECT * FROM accounts WHERE login = ?",
+    [1],
+    function (error, results, fields) {
+      // If there is an issue with the query, output the error
+      if (error) throw error;
+      // If the account exists
+      if (results.length > 0) {
+        // Authenticate the user
+        //request.session.loggedin = true;
+
+        console.log(">> results: ", results);
+        var string = JSON.stringify(results);
+        console.log(">> string: ", string);
+        var json = JSON.parse(string);
+        console.log(">> json: ", json);
+        //session_id = json[0].user_id;
+        console.log(">> user_id: ", session_id);
+        //req.list = json;
+        res.json(results);
+      }
+    }
+  );
+});
+
+// http://localhost:5000/auth
 app.post("/auth", function (request, response) {
   // Capture the input fields
   let username = request.body.username;
@@ -52,7 +101,7 @@ app.post("/auth", function (request, response) {
   if (username && password) {
     // Execute SQL query that'll select the account from the database based on the specified username and password
     connection.query(
-      "SELECT * FROM accounts WHERE username = ? AND password = ?",
+      "SELECT user_id FROM accounts WHERE username = ? AND password = ?",
       [username, password],
       function (error, results, fields) {
         // If there is an issue with the query, output the error
@@ -61,8 +110,31 @@ app.post("/auth", function (request, response) {
         if (results.length > 0) {
           // Authenticate the user
           request.session.loggedin = true;
+
           request.session.username = username;
-          // Redirect to home page
+          console.log(">> results: ", results);
+          var string = JSON.stringify(results);
+          console.log(">> string: ", string);
+          var json = JSON.parse(string);
+          console.log(">> json: ", json);
+          session_id = json[0].user_id;
+          console.log(">> user_id: ", session_id);
+          //req.list = json;
+          if (session_id != null) {
+            console.log("inside");
+            connection.query(
+              "UPDATE accounts SET login = 1 WHERE user_id = ?",
+              [session_id],
+              function (err, result) {
+                if (err) {
+                  console.log(err);
+                }
+                console.log("login updated");
+              }
+            );
+          }
+
+          //Redirect to home page
           response.redirect("/home");
         } else {
           response.send("Incorrect Username and/or Password!");
@@ -80,13 +152,16 @@ app.post("/auth", function (request, response) {
 app.get("/home", function (request, response) {
   // If the user is loggedin
   if (request.session.loggedin) {
-    // Output username
-    response.send("Welcome back, " + request.session.username + "!");
-  } else {
-    // Not logged in
-    response.send("Please login to view this page!");
+    response.sendFile(path.join(__dirname, "views/dashboard.html"));
   }
-  response.end();
+
+  //   // Output username
+  //   response.send("Welcome back, " + request.session.username + "!");
+  // } else {
+  //   // Not logged in
+  //   response.send("Please login to view this page!");
+  // }
+  // response.end();
 });
 
 app.post("/create_user", (req, res) => {
@@ -108,7 +183,7 @@ app.post("/create_user", (req, res) => {
   });
 });
 
-app.listen(5000, () => {
-  console.log("Listening on port " + 5000);
+app.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
 });
 module.exports = app;
